@@ -2,13 +2,14 @@ import { json } from "@remix-run/node";
 import { Form, Link, Outlet, useLoaderData } from "@remix-run/react";
 
 import { getCities } from "~/models/city.server";
+import { getCounties } from "~/models/county.server";
 
 export const loader = async () => {
-  return json({ cities: await getCities() });
+  return json({ cities: await getCities(), counties: await getCounties() });
 };
 
 export default function CitiesMainPage() {
-  const { cities } = useLoaderData<typeof loader>();
+  const { cities, counties } = useLoaderData<typeof loader>();
 
   return (
     <main>
@@ -22,8 +23,11 @@ export default function CitiesMainPage() {
               <label htmlFor="county">Megye</label>
               <div>
                 <select name="county" id="county">
-                  <option value="1">Békés Megye</option>
-                  <option value="2">Csongrád Megye</option>
+                  {counties.map((county) => (
+                    <option value={county.id} key={county.id}>
+                      {county.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </Form>

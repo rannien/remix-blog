@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Form, Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
 import { getCity } from "~/models/city.server";
@@ -23,8 +23,13 @@ export default function CitiesShow() {
       <div className="flex">
         <h2>{city.name}</h2>
 
-        <a href="#">Edit</a>
-        <a href="#">Delete</a>
+        <Link to="edit" className="text-blue-600 underline">
+          Edit
+        </Link>
+
+        <Form method="delete">
+          <button>Delete</button>
+        </Form>
       </div>
     </main>
   );
