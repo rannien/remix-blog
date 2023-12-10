@@ -1,15 +1,14 @@
 import { json } from "@remix-run/node";
 import { Form, Link, Outlet, useLoaderData } from "@remix-run/react";
 
-import { getCities } from "~/models/city.server";
 import { getCounties } from "~/models/county.server";
 
 export const loader = async () => {
-  return json({ cities: await getCities(), counties: await getCounties() });
+  return json({ counties: await getCounties() });
 };
 
 export default function CitiesMainPage() {
-  const { cities, counties } = useLoaderData<typeof loader>();
+  const { counties } = useLoaderData<typeof loader>();
 
   return (
     <main>
@@ -18,7 +17,6 @@ export default function CitiesMainPage() {
       <div className="flex">
         <div className="flex flex-col">
           <div>
-            <h2>Új város felvétele</h2>
             <Form>
               <label htmlFor="county">Megye</label>
               <div>
@@ -33,20 +31,6 @@ export default function CitiesMainPage() {
             </Form>
 
             <Link to="new">New City</Link>
-          </div>
-          <div>
-            <ul>
-              {cities.map((city) => (
-                <li key={city.id}>
-                  <Link
-                    to={city.id.toString()}
-                    className="text-blue-600 underline"
-                  >
-                    {city.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
         <div>
