@@ -85,6 +85,93 @@ async function seed() {
     });
   }
 
+  const counties = [
+    {
+      name: "Bács-Kiskun",
+    },
+    {
+      name: "Baranya",
+    },
+    {
+      name: "Békés",
+    },
+    {
+      name: "Borsod-Abaúj-Zemplén",
+    },
+    {
+      name: "Csongrád-Csanád",
+    },
+    {
+      name: "Fejér",
+    },
+    {
+      name: "Győr-Moson-Sopron",
+    },
+    {
+      name: "Hajdú-Bihar",
+    },
+    {
+      name: "Heves",
+    },
+    {
+      name: "Jász-Nagykun-Szolnok",
+    },
+    {
+      name: "Komárom-Esztergom",
+    },
+    {
+      name: "Nógrád",
+    },
+    {
+      name: "Pest",
+    },
+    {
+      name: "Somogy",
+    },
+    {
+      name: "Szabolcs-Szatmár-Bereg",
+    },
+    {
+      name: "Tolna",
+    },
+    {
+      name: "Vas",
+    },
+    {
+      name: "Veszprém",
+    },
+    {
+      name: "Zala",
+    },
+  ];
+
+  counties.forEach(async (county, index) => {
+    await prisma.county.upsert({
+      where: { id: index + 1 },
+      update: county,
+      create: county,
+    });
+  });
+
+  const cities = [
+    {
+      name: "Szeged",
+      countyId: 5,
+    },
+    {
+      name: "Orosháza",
+      countyId: 3,
+    },
+  ];
+
+  cities.forEach(async (city, index) => {
+    await prisma.city.upsert({
+      where: { id: index + 1 },
+      update: city,
+      create: city,
+    });
+  });
+
   console.log(`Database has been seeded. 🌱`);
 }
 
