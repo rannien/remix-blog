@@ -9,6 +9,6 @@ export default {
   },
   plugins: [daisyui, typography],
   daisyui: {
-    themes: ["fantasy"],
+    themes: ["synthwave"],
   },
 } satisfies Config;
